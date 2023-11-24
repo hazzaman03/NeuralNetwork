@@ -9,9 +9,18 @@ class Paint(object):
 
         self.reset_button = Button(self.root, text='reset', command=self.clear)
         self.reset_button.grid(row='1', column='2')
+        self.guess_button = Button(self.root, text='guess', command=self.guess)
+        self.guess_button.grid(row='1', column='3')
 
         self.c = Canvas(self.root, bg='black', width=560, height=560)
-        self.c.grid(row='0', columnspan=5)
+        self.c.grid(row='0', columnspan=6)
+        
+        self.guess_frame = Frame(self.root, width=200, height=560)
+        self.guess_frame.grid(row=0, column=7)
+        Label(self.guess_frame, text='Guess: 0', width=20, font=("Arial", 25)).grid(row=0, column=0)
+
+        for i in range(10):
+            Label(self.guess_frame, text=f"{i}: {round(100/9, 2)}%", width=20).grid(row=i+1, column=0)
         
         self.setup()
         self.root.mainloop()
@@ -49,9 +58,12 @@ class Paint(object):
     
     def clear(self):
         self.c = Canvas(self.root, bg='black', width=560, height=560)
-        self.c.grid(row='0', columnspan=5)
+        self.c.grid(row='0', columnspan=6)
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
+    
+    def guess(self):
+        print('hi')
 
 
 if __name__ == '__main__':
