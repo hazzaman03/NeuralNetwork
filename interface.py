@@ -1,5 +1,7 @@
 from tkinter import *
-from tkinter.colorchooser import askcolor
+
+from PIL import Image
+import PIL.ImageOps    
 
 
 class Paint(object):
@@ -9,11 +11,9 @@ class Paint(object):
 
         self.reset_button = Button(self.root, text='reset', command=self.clear)
         self.reset_button.grid(row='1', column='2')
-        self.guess_button = Button(self.root, text='guess', command=self.guess)
-        self.guess_button.grid(row='1', column='3')
 
-        self.c = Canvas(self.root, bg='black', width=560, height=560)
-        self.c.grid(row='0', columnspan=6)
+        self.c = Canvas(self.root, bg='white', width=560, height=560)
+        self.c.grid(row='0', columnspan=5)
         
         self.guess_frame = Frame(self.root, width=200, height=560)
         self.guess_frame.grid(row=0, column=7)
@@ -28,8 +28,8 @@ class Paint(object):
     def setup(self):
         self.old_x = None
         self.old_y = None
-        self.line_width = 40
-        self.color = 'white'
+        self.line_width = 45
+        self.color = 'black'
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
 
@@ -55,10 +55,17 @@ class Paint(object):
 
     def reset(self, event):
         self.old_x, self.old_y = None, None
+        self.c.postscript(file="ps.ps", colormode='color')
+        img = Image.open('ps.ps')
+        img = img.resize((28,28))
+        img = PIL.ImageOps.invert(img)
+        img.save('jpeg.jpeg')
     
+
+            
     def clear(self):
         self.c = Canvas(self.root, bg='black', width=560, height=560)
-        self.c.grid(row='0', columnspan=6)
+        self.c.grid(row='0', columnspan=5)
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
     
