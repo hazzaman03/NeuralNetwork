@@ -57,14 +57,14 @@ class Paint(object):
         self.old_x, self.old_y = None, None
         self.c.postscript(file="ps.ps", colormode='color')
         img = Image.open('ps.ps')
-        img = img.resize((28,28))
+        img = img.resize((28,28), Image.BICUBIC)
         img = PIL.ImageOps.invert(img)
-        img.save('jpeg.jpeg')
+        img.save('png.png')
     
 
             
     def clear(self):
-        self.c = Canvas(self.root, bg='black', width=560, height=560)
+        self.c = Canvas(self.root, bg='white', width=560, height=560)
         self.c.grid(row='0', columnspan=5)
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
