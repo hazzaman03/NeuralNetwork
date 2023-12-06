@@ -19,22 +19,17 @@ class Paint(object):
         
         self.guess_frame = Frame(self.root, width=200, height=560)
         self.guess_frame.grid(row=0, column=7)
-        Label(self.guess_frame, text='Guess: 0', width=20, font=("Arial", 25)).grid(row=0, column=0)
-
-        for i in range(10):
-            Label(self.guess_frame, text=f"{i}: {round(100/9, 2)}%", width=20).grid(row=i+1, column=0)
+        self.guess()
         
-        self.setup()
-        self.root.mainloop()
-
-    def setup(self):
         self.old_x = None
         self.old_y = None
         self.line_width = 45
         self.color = 'black'
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
-
+        
+        self.root.mainloop()
+        
     def use_pen(self):
         self.activate_button(self.pen_button)
 
@@ -54,9 +49,19 @@ class Paint(object):
                                capstyle=ROUND, smooth=TRUE, splinesteps=36)
         self.old_x = event.x
         self.old_y = event.y
-
+        
     def reset(self, event):
         self.old_x, self.old_y = None, None
+        self.guess()
+        
+    def clear(self):
+        self.c = Canvas(self.root, bg='white', width=560, height=560)
+        self.c.grid(row='0', columnspan=5)
+        self.c.bind('<B1-Motion>', self.paint)
+        self.c.bind('<ButtonRelease-1>', self.reset)
+        self.guess()
+        
+    def guess(self):
         self.c.postscript(file="ps.ps")
         img = Image.open('ps.ps').convert('L')
         img = img.resize((28,28), Image.BICUBIC)
@@ -64,17 +69,11 @@ class Paint(object):
         cwd_str = os.getcwd()
         os.remove(cwd_str + '/ps.ps')
         arr = np.array(img)
-
         
-            
-    def clear(self):
-        self.c = Canvas(self.root, bg='white', width=560, height=560)
-        self.c.grid(row='0', columnspan=5)
-        self.c.bind('<B1-Motion>', self.paint)
-        self.c.bind('<ButtonRelease-1>', self.reset)
-    
-    def guess(self):
-        print('hi')
+        Label(self.guess_frame, text='Guess: 0', width=20, font=("Arial", 25)).grid(row=0, column=0)
+
+        for i in range(10):
+            Label(self.guess_frame, text=f"{i}: {round(100/9, 2)}%", width=20).grid(row=i+1, column=0)
 
 
 if __name__ == '__main__':
