@@ -2,6 +2,8 @@ from tkinter import *
 
 from PIL import Image
 import PIL.ImageOps    
+import os
+import numpy as np
 
 
 class Paint(object):
@@ -55,13 +57,15 @@ class Paint(object):
 
     def reset(self, event):
         self.old_x, self.old_y = None, None
-        self.c.postscript(file="ps.ps", colormode='color')
-        img = Image.open('ps.ps')
+        self.c.postscript(file="ps.ps")
+        img = Image.open('ps.ps').convert('L')
         img = img.resize((28,28), Image.BICUBIC)
         img = PIL.ImageOps.invert(img)
-        img.save('png.png')
-    
+        cwd_str = os.getcwd()
+        os.remove(cwd_str + '/ps.ps')
+        arr = np.array(img)
 
+        
             
     def clear(self):
         self.c = Canvas(self.root, bg='white', width=560, height=560)
