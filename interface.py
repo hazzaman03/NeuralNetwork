@@ -69,7 +69,7 @@ class Paint(object):
         cwd_str = os.getcwd()
         os.remove(cwd_str + '/ps.ps')
         arr = np.array(img)
-        arr = np.divide(arr, 255)
+        arr = np.divide(arr, 256)
         
         Label(self.guess_frame, text='Guess: 0', width=20, font=("Arial", 25)).grid(row=0, column=0)
 

@@ -15,6 +15,7 @@ class Network:
         for i in self.layers:
             res = self.soft_max(np.dot(i.weights, res) + i.biases)
         print(res)
+        
     def sigmoid(self, x):
         return np.divide(1, 1 + np.exp(-x))
     
