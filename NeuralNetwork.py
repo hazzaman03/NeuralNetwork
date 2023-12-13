@@ -1,5 +1,5 @@
 import numpy as np
-
+# from data import getData
 class Network:
     INPUT = 28 * 28
     OUTPUT = 10
@@ -36,14 +36,18 @@ class Layer:
 if __name__ == "__main__":
     network = Network()
     network.predict(np.random.random((28*28,1)))
-
+    
+    # train_X, train_Y, test_X, test_Y = getData()
+    
+    # train_X = np.array(train_X/256, dtype=np.float64)
+    # train_Y = np.array(train_Y/256, dtype=np.float64)
+    # test_X = np.array(test_X/256, dtype=np.float64)
+    # test_Y = np.array(test_Y/256, dtype=np.float64)
+    
+    # np.save('trainx', train_X)
+    # np.save('trainy', train_Y)
+    # np.save('testx', test_X)
+    # np.save('testy', test_Y)
     
     
-        
-    
-    
-    
-        
-    
-
     
