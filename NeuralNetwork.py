@@ -26,7 +26,7 @@ class Network:
         return np.divide(np.exp(x), np.sum(np.exp(x)))
     
 class Layer:
-    def __init__(self, length : int, previous : int) -> None:
+    def __init__(self, length, previous) -> None:
         self.length = length
         self.previous = previous
         
