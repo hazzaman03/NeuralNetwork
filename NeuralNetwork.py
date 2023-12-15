@@ -39,7 +39,10 @@ if __name__ == "__main__":
     
     # train_X, train_Y, test_X, test_Y = getData()
     
+    # np.save('trainx_sample', train_X[:100])
+    # np.save('trainy_sample', train_Y[:100])
+    # np.save('testx_sample', test_X[:100])
+    # np.save('testy_sample', test_Y[:100])
     
-    
-    
+    # train_X, train_Y, test_X, test_Y = np.load('trainx_sample.npy'), np.load('trainy_sample.npy'), np.load('testx_sample.npy'), np.load('testy_sample.npy')
     
