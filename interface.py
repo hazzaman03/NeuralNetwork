@@ -4,11 +4,13 @@ from PIL import Image
 import PIL.ImageOps    
 import os
 import numpy as np
+from Model import Model
 
 
 class Paint(object):
 
     def __init__(self):
+        self.model = Model()
         self.root = Tk()
 
         self.reset_button = Button(self.root, text='reset', command=self.clear)
@@ -69,12 +71,17 @@ class Paint(object):
         cwd_str = os.getcwd()
         os.remove(cwd_str + '/ps.ps')
         arr = np.array(img)
-        arr = np.divide(arr, 256)
+        arr = np.divide(arr, 255)
+        arr = arr.reshape(1, 28*28)
         
-        Label(self.guess_frame, text='Guess: 0', width=20, font=("Arial", 25)).grid(row=0, column=0)
+        guess = self.model.predict(arr)
+        guess = [(guess[i]*100, i) for i in range(10)]
+        
+        m = max(guess)
+        Label(self.guess_frame, text=f'Guess: {m[1]}', width=20, font=("Arial", 25)).grid(row=0, column=0)
 
         for i in range(10):
-            Label(self.guess_frame, text=f"{i}: {round(100/9, 2)}%", width=20).grid(row=i+1, column=0)
+            Label(self.guess_frame, text=f"{i}: {round(guess[i][0], 2)}%", width=20).grid(row=i+1, column=0)
 
 
 if __name__ == '__main__':
