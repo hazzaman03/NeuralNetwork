@@ -4,13 +4,13 @@ from PIL import Image
 import PIL.ImageOps    
 import os
 import numpy as np
-from Model import Model
+from ModelManager import getModel
 
 
 class Paint(object):
 
     def __init__(self):
-        self.model = Model()
+        self.model = getModel()
         self.root = Tk()
 
         self.reset_button = Button(self.root, text='reset', command=self.clear)
