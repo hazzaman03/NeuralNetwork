@@ -28,8 +28,8 @@ if __name__ == "__main__":
     model = resetModel()
     x_train, y_train, x_test, y_test = getData()
 
-    for x, y in zip(x_test[:10], y_test[:10]):
-        prediction = model.predict(x)
+    # for x, y in zip(x_test[:10], y_test[:10]):
+    #     prediction = model.predict(x)
         
-        print(f"{np.argmax(y) + 1}:{np.amax(prediction)}")
+    #     print(f"{np.argmax(y) + 1}:{np.amax(prediction)}")
     

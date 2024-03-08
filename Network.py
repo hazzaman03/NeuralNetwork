@@ -33,11 +33,13 @@ class Network:
     def fit(self, x_train, y_train, epochs, learning_rate):
         # sample dimension first
         samples = len(x_train)
-
+        batch_size = samples//epochs
+        start = 0
+    
         # training loop
         for i in range(epochs):
             err = 0
-            for j in range(samples):
+            for j in range(start, start + batch_size):
                 # forward propagation
                 output = x_train[j]
                 for layer in self.layers:
@@ -50,6 +52,8 @@ class Network:
                 error = self.loss_prime(y_train[j], output)
                 for layer in reversed(self.layers):
                     error = layer.backward_propagation(error, learning_rate)
+            
+            start += batch_size
 
             # calculate average error on all samples
             err /= samples

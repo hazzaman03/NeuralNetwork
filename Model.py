@@ -15,16 +15,16 @@ class Model:
         # Network
         self.net = Network()
         
-        self.net.add(FCLayer(28*28, 50))
+        self.net.add(FCLayer(28*28, 100))
         self.net.add(ActivationLayer(tanh, tanh_prime))
         
-        self.net.add(FCLayer(50, 50)) 
+        self.net.add(FCLayer(100, 100)) 
         self.net.add(ActivationLayer(tanh, tanh_prime))
         
-        self.net.add(FCLayer(50, 50)) 
+        self.net.add(FCLayer(100, 100)) 
         self.net.add(ActivationLayer(tanh, tanh_prime))
     
-        self.net.add(FCLayer(50, 10))                    
+        self.net.add(FCLayer(100, 10))                    
         self.net.add(ActivationLayer(tanh, tanh_prime))
 
         # train on 1000 samples
