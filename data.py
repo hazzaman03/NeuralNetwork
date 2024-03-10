@@ -23,10 +23,10 @@ def getData():
     # training data : 60000 samples
     # reshape and normalize input data
     for i in range(len(x_train)):
-        rotation = np.random.normal(scale=1)
-        zoom = np.random.choice(np.linspace(0.70, 0.80, num=20))
-        shift_x = np.random.choice([-2, -1, 0, 1, 2])
-        shift_y = np.random.choice([-2, -1, 0, 1, 2])
+        rotation = np.random.normal(scale=5)
+        zoom = np.random.choice(np.linspace(0.85, 0.98, num=200))
+        shift_x = np.random.choice([-2, -1, 0,0, 1, 2])
+        shift_y = np.random.choice([-2, -1, 0,0, 1, 2])
         
         x_train[i] = paddedzoom(x_train[i], zoom)
         x_train[i] = rotate(x_train[i], rotation, reshape=False)

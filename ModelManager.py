@@ -21,7 +21,11 @@ def getModel():
 
 def resetModel():
     cwd_str = getcwd()
-    remove(cwd_str + '/model_data.pkl')
+    try: 
+        remove(cwd_str + '/model_data.pkl')
+    except:
+        print('no model found')
+        
     return getModel()
 
 if __name__ == "__main__":

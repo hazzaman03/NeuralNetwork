@@ -7,6 +7,7 @@ from Activation import *
 from Loss import mse, mse_prime
 from data import getData
 
+
 class Model:
     def __init__(self) -> None:
         # load MNIST from server
@@ -30,7 +31,7 @@ class Model:
         # train on 1000 samples
         # as we didn't implemented mini-batch GD, training will be pretty slow if we update at each iteration on 60000 samples...
         self.net.use(mse, mse_prime)
-        self.net.fit(x_train, y_train, epochs=10, learning_rate=0.01)
+        self.net.fit(x_train, y_train, epochs=120, learning_rate=0.01)
     
     def predict(self, img):
         prediction = self.net.predict(img)
