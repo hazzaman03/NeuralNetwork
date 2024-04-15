@@ -25,7 +25,7 @@ class Paint(object):
         
         self.old_x = None
         self.old_y = None
-        self.line_width = 45
+        self.line_width = 55
         self.color = 'black'
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)

@@ -16,22 +16,34 @@ class Model:
         # Network
         self.net = Network()
         
-        self.net.add(FCLayer(28*28, 100))
+        self.net.add(FCLayer(28*28, 20))
         self.net.add(ActivationLayer(tanh, tanh_prime))
         
-        self.net.add(FCLayer(100, 100)) 
+        self.net.add(FCLayer(20, 20)) 
         self.net.add(ActivationLayer(tanh, tanh_prime))
         
-        self.net.add(FCLayer(100, 100)) 
+        self.net.add(FCLayer(20, 20)) 
+        self.net.add(ActivationLayer(tanh, tanh_prime))
+        
+        self.net.add(FCLayer(20, 20)) 
+        self.net.add(ActivationLayer(tanh, tanh_prime))
+        
+        self.net.add(FCLayer(20, 20)) 
+        self.net.add(ActivationLayer(tanh, tanh_prime))
+        
+        self.net.add(FCLayer(20, 20)) 
+        self.net.add(ActivationLayer(tanh, tanh_prime))
+        
+        self.net.add(FCLayer(20, 20)) 
         self.net.add(ActivationLayer(tanh, tanh_prime))
     
-        self.net.add(FCLayer(100, 10))                    
+        self.net.add(FCLayer(20, 10))                    
         self.net.add(ActivationLayer(tanh, tanh_prime))
 
         # train on 1000 samples
         # as we didn't implemented mini-batch GD, training will be pretty slow if we update at each iteration on 60000 samples...
         self.net.use(mse, mse_prime)
-        self.net.fit(x_train, y_train, epochs=120, learning_rate=0.01)
+        self.net.fit(x_train, y_train, epochs=20, learning_rate=0.01)
     
     def predict(self, img):
         prediction = self.net.predict(img)
@@ -46,6 +58,18 @@ if __name__ == "__main__":
     correct = 0
     incorrect = 0
     for x, y in zip(x_test, y_test):
+        prediction = model.predict(x)
+        
+        if np.argmax(prediction) == np.argmax(y):
+            correct += 1
+        else:
+            incorrect += 1
+    
+    print(correct / (correct + incorrect) * 100)
+    
+    correct = 0
+    incorrect = 0
+    for x, y in zip(x_train, y_train):
         prediction = model.predict(x)
         
         if np.argmax(prediction) == np.argmax(y):

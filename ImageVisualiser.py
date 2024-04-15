@@ -15,6 +15,7 @@ def showRandomImg():
     img = Image.fromarray(img) 
     
     img.show()
+    print(y_train[imgIndex])
     
     
 

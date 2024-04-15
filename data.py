@@ -24,7 +24,9 @@ def getData():
     # reshape and normalize input data
     for i in range(len(x_train)):
         rotation = np.random.normal(scale=5)
-        zoom = np.random.choice(np.linspace(0.85, 0.98, num=200))
+        zoom1 = np.random.choice(np.linspace(0.90, 0.98, num=200))
+        zoom2 = np.random.choice(np.linspace(1.02, 1.1, num=200))
+        zoom = np.random.choice([zoom1, zoom2])
         shift_x = np.random.choice([-2, -1, 0,0, 1, 2])
         shift_y = np.random.choice([-2, -1, 0,0, 1, 2])
         
@@ -35,14 +37,10 @@ def getData():
     x_train = x_train.reshape(x_train.shape[0], 1, 28*28)
     x_train = x_train.astype('float32')
     x_train /= 255
+
+    add_noise(x_train)
     
-    for i in range(len(x_train)):
-        for j in range(len(x_train[i][0])):
-            rand = np.random.randint(0,20)
-            if rand == 1:
-                choice = np.random.choice(np.linspace(0.3, 0.8))
-                x_train[i][0][j] = choice
-        
+    
     # encode output which is a number in range [0,9] into a vector of size 10
     # e.g. number 3 will become [0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
     y_train = to_categorical(y_train)
@@ -57,9 +55,7 @@ def getData():
     np.save('y_train', y_train)
     np.save('x_test', x_test)
     np.save('y_test', y_test)
-    
-    np.random.shuffle(x_train)
-    
+            
     return x_train, y_train, x_test, y_test
 
 def resetData():
@@ -73,6 +69,14 @@ def resetData():
         print('no current data')
         
     getData()
+    
+def add_noise(data):
+    for i in range(len(data)):
+        for j in range(len(data[i][0])):
+            rand = np.random.randint(0,30)
+            if rand == 1:
+                choice = np.random.choice(np.linspace(0.3, 0.8))
+                data[i][0][j] = choice
     
 def paddedzoom(img, zoomfactor):
 
