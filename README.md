@@ -6,7 +6,7 @@ Creating a neural network from scratch using numpy
 
 Create a virtual environment and install requirements:
 
-python -m venv env \    
+python -m venv env   
 source env/bin/activate \
 pip install -r requirements.txt
 
